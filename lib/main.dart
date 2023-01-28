@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sms_inbox_example/injection_container.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../view/home/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  var permission = await Permission.sms.status;
+  var permission = await Permission.sms;
   if (!permission.isGranted) {
     await [Permission.sms].request();
   }
+  final container = ProviderContainer(
+    overrides: permissionProvider.overrideWithValue((ref) => permission),
+  );
   runApp(
-    const ProviderScope(
+    const UncontrolledProviderScope(
       child: MyApp(),
     ),
   );

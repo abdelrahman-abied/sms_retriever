@@ -39,7 +39,7 @@ class _ItemsState extends State<Items> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-                "AED ${widget.smsMessage.body != null ? total(widget.smsMessage.body!) : 0.0}"),
+                "AED ${widget.smsMessage.body != null ? total(widget.smsMessage.body!).toStringAsFixed(3) : 0.0}"),
             TextButton(
               style: TextButton.styleFrom(
                   foregroundColor: Colors.black, padding: EdgeInsets.zero),

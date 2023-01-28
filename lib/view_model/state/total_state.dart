@@ -7,16 +7,14 @@ final totalState = StateProvider<double>((ref) {
   final messages = ref.watch(smsVM).messages;
 
   messages.map((element) {
-    if (element.body?.contains(currency) ?? false) {
-      final body = element.body;
-      List<String> textList = body!
-          .replaceAll(currency, " ")
-          .replaceAll(RegExp(r"\s+\b|\b\s"), " ")
-          .split(" ");
-      for (int i = 0; i < textList.length; i++) {
-        if (regExpPattern.hasMatch(textList[i])) {
-          total += double.tryParse(textList[i]) ?? 0.0;
-        }
+    final body = element.body;
+    List<String> textList = body!
+        .replaceAll(currency, " ")
+        .replaceAll(RegExp(r"\s+\b|\b\s"), " ")
+        .split(" ");
+    for (int i = 0; i < textList.length; i++) {
+      if (regExpPattern.hasMatch(textList[i])) {
+        total += double.tryParse(textList[i]) ?? 0.0;
       }
     }
   }).toList();
